@@ -19,21 +19,20 @@ public class ProductDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
-        String prodName = (String) getIntent().getExtras().get(EXTRA_PROD_TYPE);
         int prodNo = (Integer) getIntent().getExtras().get(EXTRA_PROD_NO);
         try {
             SQLiteOpenHelper jollibeeDatabaseHelper = new JollibeeDatabaseHelper(this);
             SQLiteDatabase db = jollibeeDatabaseHelper.getReadableDatabase();
 
             Cursor cursor = db.query("PRODUCT",
-                    new String[]{"NAME, DESCRIPTION, IMAGE_RESOURCE_ID, TYPE"},
-                    "TYPE=?",
-                    new String[]{"valueMeal"},
+                    new String[]{"_id,NAME, DESCRIPTION, IMAGE_RESOURCE_ID"},
+                    "_id=?",
+                    new String[]{Integer.toString(prodNo)},
                     null, null, null);
-            if(cursor.move(prodNo)){
-                String nameText = cursor.getString(0);
-                String descriptionText = cursor.getString(1);
-                int photoId = cursor.getInt(2);
+            if(cursor.moveToFirst()){
+                String nameText = cursor.getString(1);
+                String descriptionText = cursor.getString(2);
+                int photoId = cursor.getInt(3);
 
                 TextView name = (TextView) findViewById(R.id.name);
                 name.setText(nameText);

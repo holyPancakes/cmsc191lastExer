@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
@@ -32,7 +32,7 @@ public class ProductCatActivity extends ListActivity {
         db = jollibeeDatabaseHelper.getReadableDatabase();
 
         cursor = db.query("PRODUCT",
-                new String[]{"NAME","TYPE"},
+                new String[]{"_id","NAME","TYPE"},
                 "TYPE=?",
                 new String[]{this.prodType},
                 null, null, null);
